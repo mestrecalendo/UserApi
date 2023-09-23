@@ -10,6 +10,6 @@ namespace Domain.Entities
     {
         public int IdEscolaridade { get; set; }
 
-        public string nome { get; set; }
+        public string Nome { get; set; }
     }
 }

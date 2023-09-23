@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Configuracao
 {
-    internal class ContextDb : DbContext
+    public class ContextDb : DbContext
     {
         public ContextDb(DbContextOptions options) : base(options)
         {
@@ -21,9 +21,17 @@ namespace Infrastructure.Configuracao
             }
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>().HasKey(t => t.IdUsuario);
+            builder.Entity<Escolaridade>().HasKey(t => t.IdEscolaridade);
+
+            base.OnModelCreating(builder);
+        }
+
         public string ObterStringConexao()
         {
-            return "";
+            return "Data Source=CALENDOSCOPIO;Initial Catalog=usuario_db;Integrated Security=True;TrustServerCertificate=True";
         
         }
     }

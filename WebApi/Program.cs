@@ -1,4 +1,7 @@
+using Domain.Interfaces;
 using Infrastructure.Configuracao;
+using Infrastructure.Repositorio;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<ContextDb>(options =>
+               options.UseSqlServer(
+                   builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// INTERFACE E REPOSITORIO
+builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
+builder.Services.AddSingleton<IUsuario, RepositorioUser>();
 
 var app = builder.Build();
 
