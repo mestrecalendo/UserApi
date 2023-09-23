@@ -32,6 +32,14 @@ namespace Infrastructure.Repositorio
             }
         }
 
+        public async Task<T> GetEntityById(int Id)
+        {
+            using (var data = new ContextDb(_OptionsBuilder))
+            {
+                return await data.Set<T>().FindAsync(Id);
+            }
+        }
+
         public async Task<List<T>> List()
         {
             using (var data = new ContextDb(_OptionsBuilder))
