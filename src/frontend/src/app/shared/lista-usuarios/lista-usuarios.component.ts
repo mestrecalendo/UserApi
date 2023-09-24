@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NbActionsModule, NbCardModule, NbDialogModule } from '@nebular/theme';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/service/alert.service';
 
 
 @Component({
@@ -15,14 +16,17 @@ import { Router } from '@angular/router';
 export class ListaUsuariosComponent implements OnInit{
   listaUsuarios?: any[]
 
-  constructor(private usuarioService: UsuarioService,private router: Router) { }
+  constructor(private usuarioService: UsuarioService,private router: Router,private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.usuarioService.ListarUsuarios().subscribe({
       next: (data) => {
         this.listaUsuarios = data;
       },
-      error: (error: any) => { }
+      error: (error: any) => {
+        console.log(error);
+        this.alertService.showToast("Error", error ? error.status : "Algo deu Errado", 5000, 'danger', 1)
+      }
     });
   }
 
@@ -31,9 +35,10 @@ export class ListaUsuariosComponent implements OnInit{
     this.usuarioService.ExcluirUsuario(id).subscribe({
       next: () => {
         this.ngOnInit();
+        this.alertService.showToast("Sucesso", "Usuário removido", 5000, 'success', 1)
       },
       error: (error: any) => {
-        console.log(error);
+        this.alertService.showToast("Error", error ? error.status : "Algo deu Errado", 5000, 'danger', 1)
       }
     })
   }

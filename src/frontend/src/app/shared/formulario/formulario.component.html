@@ -6,11 +6,8 @@
       <input nbInput fullWidth fieldSize="large" id="email" type="email" formControlName="email" placeholder="Email">
       <input nbInput fullWidth fieldSize="large" id="dataNascimento" [nbDatepicker]="datepicker" formControlName="dataNascimento" placeholder="Data de Nascimento">
       <nb-datepicker #datepicker > </nb-datepicker>
-      <nb-select fullWidth fieldSize="large" id="escolaridade" placeholder="Escolaridade" formControlName="escolaridade">
-        <nb-option value=1>Option 1</nb-option>
-        <nb-option value=2>Option 2</nb-option>
-        <nb-option value=3>Option 3</nb-option>
-        <nb-option value=4>Option 4</nb-option>
+      <nb-select fullWidth fieldSize="large" id="escolaridade" placeholder="Escolaridade" formControlName="escolaridade" >
+        <nb-option *ngFor="let escolaridade of listaEscolaridade" value={{escolaridade.idEscolaridade}}>{{escolaridade.escolaridade_name}}</nb-option>
       </nb-select>
     </nb-card-body>
   </nb-card>

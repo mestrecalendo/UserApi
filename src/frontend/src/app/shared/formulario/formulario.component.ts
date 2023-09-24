@@ -2,37 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { idade, validatorData } from './validatorData';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { idade } from './validatorData';
 import { User } from 'src/app/models/user';
-import { NbButtonModule, NbCardModule, NbDatepickerModule, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbInputModule, NbSelectModule, NbToastrService } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDatepickerModule, NbInputModule, NbSelectModule } from '@nebular/theme';
+import { AlertService } from 'src/app/service/alert.service';
+import { EscolaridadeService } from 'src/app/service/escolaridade.service';
+import { Escolaridade } from 'src/app/models/escolaridade';
 
 @Component({
   selector: 'app-formulario',
   standalone: true,
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.scss'],
-  imports: [CommonModule,NbDatepickerModule, ReactiveFormsModule, FormsModule, NbInputModule, NbButtonModule, NbSelectModule, NbCardModule]
+  imports: [CommonModule, NbDatepickerModule, ReactiveFormsModule, FormsModule, NbInputModule, NbButtonModule, NbSelectModule, NbCardModule]
 })
 export class FormularioComponent implements OnInit {
 
   userId: number;
   UserForm: FormGroup;
-  physicalPositions = NbGlobalPhysicalPosition;
-  logicalPositions = NbGlobalLogicalPosition;
+  listaEscolaridade?: Escolaridade[];
 
-  constructor(private toastrService: NbToastrService, private usuarioService: UsuarioService, private router: ActivatedRoute, private route: Router, private formBuilder: FormBuilder) { }
+  constructor(private escolaridadeService: EscolaridadeService, private alertService: AlertService, private usuarioService: UsuarioService, private router: ActivatedRoute, private route: Router, private formBuilder: FormBuilder) {
+    this.escolaridadeService.ListarEscolaridades().subscribe({
+      next: (data) => {
+        this.listaEscolaridade = data;
+      },
+      error: (error: any) => {
+        this.alertService.showToast("Error", error ? error.status : "Algo deu Errado", 5000, 'danger', 1)
+      }
+    }
+    )
+  }
 
   ngOnInit(): void {
+    const _id = this.router.snapshot.paramMap.get('id');
+
     this.UserForm = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      sobrenome: ['', [Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
-      email: ['', [Validators.required,Validators.email, Validators.maxLength(50)]],
+      sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
       dataNascimento: ['', [Validators.required, idade]],
       escolaridade: ['', [Validators.required]],
     })
 
-    const _id = this.router.snapshot.paramMap.get('id');
     if (_id) {
       this.userId = parseInt(_id);
       this.usuarioService.GetUsuarioById(this.userId).subscribe({
@@ -44,11 +57,11 @@ export class FormularioComponent implements OnInit {
           this.UserForm.get('dataNascimento')?.setValue(new Date(data.dataNascimento));
           this.UserForm.get('escolaridade')?.setValue(data.idEscolaridade.toString());
         },
-        error: (error: any) => { }
+        error: (error: any) => {
+        this.alertService.showToast("Error", error ? error.status : "Algo deu Errado", 5000, 'danger', 1)
+        }
       });
     }
-
-
   }
 
 
@@ -63,7 +76,7 @@ export class FormularioComponent implements OnInit {
 
   cadastrar() {
     if (!this.UserForm.valid) {
-      this.getFormValidationErrors(this.logicalPositions.BOTTOM_END)
+      this.getFormValidationErrors()
       return
     }
 
@@ -78,9 +91,10 @@ export class FormularioComponent implements OnInit {
     this.usuarioService.cadastrarNovoUsuario(novoUsuario).subscribe({
       complete: () => {
         this.route.navigate(['/'])
+        this.alertService.showToast("Sucesso", "Usuário Salvo", 5000, 'success', 1)
       },
-      error: (e: any) => {
-        alert(JSON.stringify(e))
+      error: (error: any) => {
+        this.alertService.showToast("Error", error ? error.status : "Algo deu Errado", 5000, 'danger', 1)
       }
     }
     )
@@ -89,7 +103,7 @@ export class FormularioComponent implements OnInit {
 
   editar() {
     if (!this.UserForm.valid) {
-      this.getFormValidationErrors(this.logicalPositions.BOTTOM_END)
+      this.getFormValidationErrors()
       return
     }
 
@@ -104,22 +118,21 @@ export class FormularioComponent implements OnInit {
     this.usuarioService.AtualizarUsuario(this.userId, novoUsuario).subscribe({
       complete: () => {
         this.route.navigate(['/'])
+        this.alertService.showToast("Sucesso", "Usuário Salvo", 5000, 'success', 1)
       },
-      error: (e: any) => {
-        alert(JSON.stringify(e))
+      error: (error: any) => {
+        this.alertService.showToast("Error", error ? error.status : "Algo deu Errado", 5000, 'danger', 1)
       }
     }
     )
   }
 
-  getFormValidationErrors(position: NbGlobalPosition) {
+  getFormValidationErrors() {
     Object.keys(this.UserForm.controls).forEach(key => {
       const controlErrors = this.UserForm.get(key)?.errors;
       if (controlErrors != null) {
         Object.keys(controlErrors).forEach(keyError => {
-          console.log(controlErrors);
-
-          this.toastrService.show(`${controlErrors[keyError].length > 5 ? controlErrors[keyError] : "Preencha os campos corretamente"}`, `Campo:  ${key}, Error:  ${keyError}`, { limit: 3, position, duration: 5000, status: 'danger' });
+          this.alertService.showToast(`Campo:  ${key}, Error:  ${keyError}`,`${controlErrors[keyError].length > 5 ? controlErrors[keyError] : "Preencha os campos corretamente"}`, 5000, 'danger', 3)
         });
       }
     });

@@ -18,20 +18,20 @@ export class UsuarioService {
   };
   constructor(private http: HttpClient) { }
 
-  cadastrarNovoUsuario(novoUsuario: User): Observable<any> {
-    return this.http.post(this.url, novoUsuario, this.httpOptions)
+  cadastrarNovoUsuario(novoUsuario: User): Observable<User> {
+    return this.http.post<User>(this.url, novoUsuario, this.httpOptions)
   }
 
   AtualizarUsuario(id:  number, novoUsuario: User): Observable<any> {
     return this.http.put(`${this.url}/${id}`, novoUsuario, this.httpOptions)
   }
 
-  GetUsuarioById(id: number): Observable<any> {
-    return this.http.get(`${this.url}/${id}`, this.httpOptions)
+  GetUsuarioById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.url}/${id}`, this.httpOptions)
   }
 
-  ListarUsuarios(): Observable<any> {
-    return this.http.get(`${this.url}`, this.httpOptions)
+  ListarUsuarios(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}`, this.httpOptions)
   }
 
   ExcluirUsuario(id: number) {

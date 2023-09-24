@@ -1,5 +1,5 @@
 export class Escolaridade
 {
-  id: number;
-  nome: string;
+  idEscolaridade: number;
+  escolaridade_name: string;
 }
