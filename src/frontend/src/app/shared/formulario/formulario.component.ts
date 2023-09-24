@@ -18,7 +18,6 @@ import { Escolaridade } from 'src/app/models/escolaridade';
   imports: [CommonModule, NbDatepickerModule, ReactiveFormsModule, FormsModule, NbInputModule, NbButtonModule, NbSelectModule, NbCardModule]
 })
 export class FormularioComponent implements OnInit {
-
   userId: number;
   UserForm: FormGroup;
   listaEscolaridade?: Escolaridade[];
@@ -50,7 +49,6 @@ export class FormularioComponent implements OnInit {
       this.userId = parseInt(_id);
       this.usuarioService.GetUsuarioById(this.userId).subscribe({
         next: (data) => {
-          console.log(data, data.idEscolaridade);
           this.UserForm.get('nome')?.setValue(data.nome);
           this.UserForm.get('sobrenome')?.setValue(data.sobrenome);
           this.UserForm.get('email')?.setValue(data.email);

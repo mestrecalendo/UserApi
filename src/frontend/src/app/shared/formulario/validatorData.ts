@@ -21,8 +21,6 @@ export function idade(control: AbstractControl) {
        new Date(hoje.getFullYear(), data.getMonth(), data.getDate()) )
       diferencaAnos--;
 
-      console.log(diferencaAnos);
-
 
       if (diferencaAnos > 15) {
         return true;
