@@ -28,8 +28,9 @@ builder.Services.AddDbContext<ContextDb>(options =>
                    builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // INTERFACE E REPOSITORIO
-builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
+builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositorioGenerico<>));
 builder.Services.AddSingleton<IUsuario, RepositorioUser>();
+builder.Services.AddSingleton<IEscolaridade, RepositorioEscolaridade>();
 
 var app = builder.Build();
 

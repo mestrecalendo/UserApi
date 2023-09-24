@@ -3,7 +3,8 @@ using Domain.Interfaces;
 
 namespace Infrastructure.Repositorio
 {
-    public class RepositorioUser : RepositoryGenerics<User>, IUsuario
+    public class RepositorioUser : RepositorioGenerico<User>, IUsuario
     {
+
     }
 }

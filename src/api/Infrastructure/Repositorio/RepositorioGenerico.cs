@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositorio
 {
-    public class RepositoryGenerics<T> : IGeneric<T>, IDisposable where T : class
+    public class RepositorioGenerico<T> : IGeneric<T>, IDisposable where T : class
     {
         private readonly DbContextOptions<ContextDb> _OptionsBuilder;
         private bool disposedValue;
 
-        public RepositoryGenerics()
+        public RepositorioGenerico()
         {
             _OptionsBuilder = new DbContextOptions<ContextDb>();
         }
