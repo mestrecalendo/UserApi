@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbActionsModule, NbCardModule, NbDialogModule } from '@nebular/theme';
 import { UsuarioService } from 'src/app/service/usuario.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { UsuarioService } from 'src/app/service/usuario.service';
 export class ListaUsuariosComponent implements OnInit{
   listaUsuarios?: any[]
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,private router: Router) { }
 
   ngOnInit(): void {
     this.usuarioService.ListarUsuarios().subscribe({
@@ -35,5 +36,9 @@ export class ListaUsuariosComponent implements OnInit{
         console.log(error);
       }
     })
+  }
+
+  editarUsuario(idUsuario: number){
+    this.router.navigate(['/cadastrar-usuario',{id: idUsuario} ])
   }
 }

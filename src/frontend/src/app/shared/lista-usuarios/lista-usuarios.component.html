@@ -1,4 +1,4 @@
-<div class="container">
+<div class="lista-container">
   <nb-card size="tiny" class="card" *ngFor="let user of listaUsuarios">
     <nb-card-header><b>Nome: </b>{{user.nome}}</nb-card-header>
     <nb-card-body>
@@ -20,7 +20,7 @@
       </p>
     </nb-card-body>
     <nb-actions size="small" fullWidth>
-      <nb-action icon="edit-2-outline"></nb-action>
+      <nb-action icon="edit-2-outline" (click)="editarUsuario(user.idUsuario)"></nb-action>
       <nb-action icon="trash-2-outline" (click)="removeUsuario(user.idUsuario)"></nb-action>
     </nb-actions>
   </nb-card>

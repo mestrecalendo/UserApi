@@ -1,4 +1,8 @@
 <nb-layout>
+  <nb-layout-header class="header">
+    <h4>CRUD Usuarios</h4>
+    <button nbButton outline status="primary" [routerLink]="['/cadastrar-usuario']"><nb-icon icon="plus"></nb-icon>Novo Usuario</button>
+  </nb-layout-header>
   <nb-layout-column>
     <router-outlet></router-outlet>
   </nb-layout-column>

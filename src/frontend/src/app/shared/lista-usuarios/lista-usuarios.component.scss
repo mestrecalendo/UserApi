@@ -1,0 +1,16 @@
+.lista-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .card {
+    max-width: 300px;
+    min-width: 300px;
+  }
+
+  nb-actions {
+    margin-bottom: 14px;
+  }
+
+}
