@@ -1,1 +1,27 @@
-<p>lista-usuarios works!</p>
+<div class="container">
+  <nb-card size="tiny" class="card" *ngFor="let user of listaUsuarios">
+    <nb-card-header><b>Nome: </b>{{user.nome}}</nb-card-header>
+    <nb-card-body>
+      <p>
+        <b>Sobrenome: </b>
+        <span>{{user.sobrenome}}</span>
+      </p>
+      <p>
+        <b>Email: </b>
+        <span>{{user.email}}</span>
+      </p>
+      <p>
+        <b>Data de Nascimento: </b>
+        <span>{{user.dataNascimento | date:"dd/MM/yyyy"}}</span>
+      </p>
+      <p>
+        <b>Escolaridade: </b>
+        <span>{{user.idEscolaridade}}</span>
+      </p>
+    </nb-card-body>
+    <nb-actions size="small" fullWidth>
+      <nb-action icon="edit-2-outline"></nb-action>
+      <nb-action icon="trash-2-outline" (click)="removeUsuario(user.idUsuario)"></nb-action>
+    </nb-actions>
+  </nb-card>
+</div>

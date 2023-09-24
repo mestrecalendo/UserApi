@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbCardModule, NbDialogModule } from '@nebular/theme';
+import { NbActionsModule, NbCardModule, NbDialogModule } from '@nebular/theme';
 import { UsuarioService } from 'src/app/service/usuario.service';
+
 
 @Component({
   selector: 'app-lista-usuarios',
   standalone: true,
-  imports: [CommonModule,NbDialogModule, NbCardModule,],
+  imports: [CommonModule,NbDialogModule, NbCardModule, NbActionsModule],
   templateUrl: './lista-usuarios.component.html',
   styleUrls: ['./lista-usuarios.component.scss']
 })
 export class ListaUsuariosComponent implements OnInit{
-  listaUsuarios?: string[]
+  listaUsuarios?: any[]
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -22,5 +23,17 @@ export class ListaUsuariosComponent implements OnInit{
       },
       error: (error: any) => { }
     });
+  }
+
+
+  removeUsuario(id: number) {
+    this.usuarioService.ExcluirUsuario(id).subscribe({
+      next: () => {
+        this.ngOnInit();
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    })
   }
 }

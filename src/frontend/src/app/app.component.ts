@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { NbCardModule, NbDialogModule, NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { FormularioComponent } from './modules/formulario/formulario.component';
 
 @Component({
   selector: 'app-root',
