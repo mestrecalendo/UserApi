@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cadastro.component.scss']
 })
 export class CadastroComponent {
-  constructor(private usuarioService: UsuarioService,private router: Router) { }
+  constructor(private router: Router) { }
 
   goBack(){
     this.router.navigate(['/'])

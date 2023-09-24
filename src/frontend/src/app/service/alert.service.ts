@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService } from "@nebular/theme";
+import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbToastrService } from "@nebular/theme";
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbFormFieldModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ListaUsuariosComponent } from 'src/app/shared/lista-usuarios/lista-usuarios.component';
@@ -11,5 +11,5 @@ import { ListaUsuariosComponent } from 'src/app/shared/lista-usuarios/lista-usua
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+ 
 }

@@ -64,7 +64,6 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-
   submitForm() {
     if (this.userId) {
       this.editar()
@@ -72,7 +71,6 @@ export class FormularioComponent implements OnInit {
       this.cadastrar()
     }
   }
-
 
   cadastrar() {
     if (!this.UserForm.valid) {
@@ -99,7 +97,6 @@ export class FormularioComponent implements OnInit {
     }
     )
   }
-
 
   editar() {
     if (!this.UserForm.valid) {
