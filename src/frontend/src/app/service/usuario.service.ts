@@ -22,8 +22,8 @@ export class UsuarioService {
     return this.http.post(this.url, novoUsuario, this.httpOptions)
   }
 
-  AtualizarUsuario(novoUsuario: User): Observable<any> {
-    return this.http.put(this.url, novoUsuario, this.httpOptions)
+  AtualizarUsuario(id:  number, novoUsuario: User): Observable<any> {
+    return this.http.put(`${this.url}/${id}`, novoUsuario, this.httpOptions)
   }
 
   GetUsuarioById(id: number): Observable<any> {

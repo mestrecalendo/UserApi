@@ -1,1 +1,20 @@
-<p>formulario works!</p>
+<form [formGroup]="UserForm" (submit)="submitForm()">
+  <nb-card>
+    <nb-card-body class="items-col">
+      <input nbInput fullWidth fieldSize="large" type="text" id="nome" formControlName="nome" placeholder="Nome">
+      <input nbInput fullWidth fieldSize="large" id="sobrenome" type="text" formControlName="sobrenome" placeholder="Sobrenome">
+      <input nbInput fullWidth fieldSize="large" id="email" type="email" formControlName="email" placeholder="Email">
+      <input nbInput fullWidth fieldSize="large" id="dataNascimento" [nbDatepicker]="datepicker" formControlName="dataNascimento" placeholder="Data de Nascimento">
+      <nb-datepicker #datepicker > </nb-datepicker>
+      <nb-select fullWidth fieldSize="large" id="escolaridade" placeholder="Escolaridade" formControlName="escolaridade">
+        <nb-option value=1>Option 1</nb-option>
+        <nb-option value=2>Option 2</nb-option>
+        <nb-option value=3>Option 3</nb-option>
+        <nb-option value=4>Option 4</nb-option>
+      </nb-select>
+    </nb-card-body>
+  </nb-card>
+
+  <button nbButton outline status="success" type="submit" >Salvar Usuário</button>
+
+</form>

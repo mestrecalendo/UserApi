@@ -1,0 +1,22 @@
+form {
+  text-align: center;
+
+  button {
+    width: 30%;
+  }
+
+  nb-card {
+    width: 80%;
+    margin: 40px auto;
+
+
+    nb-card-body.items-col {
+      align-items: stretch;
+    }
+
+    input {
+      margin-bottom: 14px;
+    }
+  }
+
+}

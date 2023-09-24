@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [CommonModule,FormularioComponent,NbActionsModule],
+  imports: [CommonModule ,FormularioComponent,NbActionsModule],
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss']
 })
