@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NbThemeModule } from '@nebular/theme';
+import { NbDialogModule, NbThemeModule } from '@nebular/theme';
 import { FormularioComponent } from './modules/formulario/formulario.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -11,10 +12,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports:[
+  imports: [
+    HttpClientModule,
     RouterModule.forRoot(routes),
-    NbThemeModule.forRoot({ name: 'default' }),
-    
+    NbThemeModule.forRoot({ name: 'cosmic' }),
+    NbDialogModule.forRoot(),
   ],
   exports:[
     RouterModule

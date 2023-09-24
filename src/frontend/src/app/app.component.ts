@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { NbCardModule, NbLayoutModule } from '@nebular/theme';
+import { NbCardModule, NbDialogModule, NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormularioComponent } from './modules/formulario/formulario.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule,NbEvaIconsModule, NbLayoutModule, FormularioComponent ],
+  imports: [CommonModule, RouterModule,NbEvaIconsModule, NbLayoutModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
